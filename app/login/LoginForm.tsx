@@ -13,9 +13,9 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useToast } from '@/components/ui/toast';
+import { useToast } from '@/hooks/use-toast';
+import { auth } from '@/lib/auth'; // make sure to create this auth utility
 import { getAuthError } from '@/lib/getAuthError';
-import { auth } from '@/lib/utils'; // Make sure to create this auth utility
 
 export function LoginForm() {
     const [isLoading, setIsLoading] = useState(false);
@@ -83,4 +83,4 @@ export function LoginForm() {
             </form>
         </Card>
     );
-}
+};
