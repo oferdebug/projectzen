@@ -43,9 +43,9 @@ const LandingPage: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        Organize Your Work, Projects, And More
+                        Organize All Your Work, Projects, And More
                         <br />
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+                        <span className="bg-clip-text [-webkit-background-clip:text] text-transparent bg-gradient-to-r from-primary to-primary/60">
                             One Task At A Time
                         </span>
                     </motion.h1>

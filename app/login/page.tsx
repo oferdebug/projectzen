@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LoginForm from '@/components/LoginForm';
+import { LoginForm } from '@/app/login/LoginForm';
 
 const Loginpage = () => {
     return (
@@ -10,4 +10,4 @@ const Loginpage = () => {
     );
 };
 
-export default LoginPage;
+export default Loginpage;

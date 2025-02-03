@@ -14,7 +14,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { auth } from '@/lib/auth'; // make sure to create this auth utility
+import { clientSignIn } from '@/lib/auth';
 import { getAuthError } from '@/lib/getAuthError';
 
 export function LoginForm() {
@@ -28,7 +28,10 @@ export function LoginForm() {
         e.preventDefault();
         setIsLoading(true);
         try {
-            await auth.signIn(email, password);
+            const result = await clientSignIn(undefined, { email, password });
+            if (result?.error) {
+                throw new Error(result.error);
+            }
             router.push('/dashboard');
         } catch (error) {
             toast({
@@ -79,8 +82,18 @@ export function LoginForm() {
                             Create New Account
                         </Link>
                     </div>
+                    <button 
+                        type="submit" 
+                        disabled={isLoading}
+                        className="w-full"
+                    >
+                        {isLoading ? "Logging in..." : "Log in"}
+                    </button>
                 </CardContent>
             </form>
         </Card>
     );
 };
+
+
+export default LoginForm;

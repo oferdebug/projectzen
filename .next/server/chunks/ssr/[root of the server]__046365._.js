@@ -1105,8 +1105,7 @@ __turbopack_esm__({
     "ToastDescription": (()=>ToastDescription),
     "ToastProvider": (()=>ToastProvider),
     "ToastTitle": (()=>ToastTitle),
-    "ToastViewport": (()=>ToastViewport),
-    "default": (()=>__TURBOPACK__default__export__)
+    "ToastViewport": (()=>ToastViewport)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
@@ -1128,7 +1127,7 @@ const ToastViewport = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5
         ...props
     }, void 0, false, {
         fileName: "[project]/components/ui/toast.tsx",
-        lineNumber: 20,
+        lineNumber: 16,
         columnNumber: 3
     }, this));
 ToastViewport.displayName = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Viewport.displayName;
@@ -1152,7 +1151,7 @@ const Toast = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f$node
         ...props
     }, void 0, false, {
         fileName: "[project]/components/ui/toast.tsx",
-        lineNumber: 53,
+        lineNumber: 49,
         columnNumber: 5
     }, this);
 });
@@ -1163,7 +1162,7 @@ const ToastAction = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2
         ...props
     }, void 0, false, {
         fileName: "[project]/components/ui/toast.tsx",
-        lineNumber: 66,
+        lineNumber: 62,
         columnNumber: 3
     }, this));
 ToastAction.displayName = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Action.displayName;
@@ -1176,12 +1175,12 @@ const ToastClose = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f
             className: "h-4 w-4"
         }, void 0, false, {
             fileName: "[project]/components/ui/toast.tsx",
-            lineNumber: 90,
+            lineNumber: 86,
             columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/ui/toast.tsx",
-        lineNumber: 81,
+        lineNumber: 77,
         columnNumber: 3
     }, this));
 ToastClose.displayName = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Close.displayName;
@@ -1191,7 +1190,7 @@ const ToastTitle = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f
         ...props
     }, void 0, false, {
         fileName: "[project]/components/ui/toast.tsx",
-        lineNumber: 99,
+        lineNumber: 95,
         columnNumber: 3
     }, this));
 ToastTitle.displayName = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Title.displayName;
@@ -1201,12 +1200,11 @@ const ToastDescription = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$projec
         ...props
     }, void 0, false, {
         fileName: "[project]/components/ui/toast.tsx",
-        lineNumber: 111,
+        lineNumber: 107,
         columnNumber: 3
     }, this));
 ToastDescription.displayName = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__.Description.displayName;
 ;
-const __TURBOPACK__default__export__ = Toast;
 }}),
 "[project]/components/ui/toaster.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";

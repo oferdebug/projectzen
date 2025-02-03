@@ -750,6 +750,10 @@ ul {
   margin-bottom: .25rem;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .ml-1 {
   margin-left: .25rem;
 }
@@ -1011,6 +1015,10 @@ ul {
   width: 2.25rem;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
 .w-\[--sidebar-width\] {
   width: var(--sidebar-width);
 }
@@ -1087,6 +1095,10 @@ ul {
   max-width: 48rem;
 }
 
+.max-w-5xl {
+  max-width: 64rem;
+}
+
 .max-w-\[--skeleton-width\] {
   max-width: var(--skeleton-width);
 }
@@ -1101,10 +1113,6 @@ ul {
 
 .max-w-screen-xl {
   max-width: 1280px;
-}
-
-.max-w-5xl {
-  max-width: 64rem;
 }
 
 .flex-1 {
@@ -1206,6 +1214,16 @@ ul {
   animation: 2s cubic-bezier(.4, 0, .6, 1) infinite pulse;
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: 1s linear infinite spin;
+}
+
 .cursor-default {
   cursor: default;
 }
@@ -1228,6 +1246,10 @@ ul {
 
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -1673,6 +1695,11 @@ ul {
   font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
 
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
@@ -1727,6 +1754,10 @@ ul {
   font-weight: 600;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 .tabular-nums {
   --tw-numeric-spacing: tabular-nums;
   font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
@@ -1742,6 +1773,11 @@ ul {
 
 .tracking-widest {
   letter-spacing: .1em;
+}
+
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
 }
 
 .text-current {
@@ -1945,6 +1981,10 @@ ul {
 
 .h-minus-135 {
   height: calc(100vh - 135px);
+}
+
+.\[-webkit-background-clip\:text\] {
+  -webkit-background-clip: text;
 }
 
 h1, h2, h3, h4, h5, h6 {

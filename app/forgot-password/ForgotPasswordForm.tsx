@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { auth } from '@/lib/auth';
+import { auth } from '@/utils/auth';
 import { useToast } from '@/hooks/use-toast';
 import { getAuthError } from '@/utils/auth-errors';
 import Icons from '@/components/Icons';
@@ -89,3 +89,6 @@ export function ForgotPasswordForm() {
         </Card>
     );
 };
+
+
+export default ForgotPasswordForm;
