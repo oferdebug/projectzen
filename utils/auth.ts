@@ -1,7 +1,7 @@
 import { useAccessStore } from '@/stores/useAccessStore';
 
 import { createClient } from './supabase/client';
-import { users } from './users';
+// Remove import since users table is accessed via Supabase client
 
 const supabase = createClient();
 
@@ -12,7 +12,7 @@ export type AuthError = {
 
 export const auth = {
   // Email & Password Sign Up
-  async signUp(email: string, password: string) {
+  async signUp(email: string, password: string, phone: string) {
     // Step 1: Check if email already exists in users table
     const { data: existingUser, error: checkError } = await supabase
       .from('users')

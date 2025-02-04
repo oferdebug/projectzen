@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { OauthSignIn } from '@/components/auth/OAuthSignIn';
 import {
     Card,
     CardContent,
@@ -16,6 +17,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { clientSignIn } from '@/lib/auth';
 import { getAuthError } from '@/lib/getAuthError';
+import { PasswordInput } from '@/components/ui/password-input';
 
 export function LoginForm() {
     const [isLoading, setIsLoading] = useState(false);
@@ -48,8 +50,8 @@ export function LoginForm() {
         <Card className='w-96'>
             <form onSubmit={handleSubmit}>
                 <CardHeader className='space-y-1'>
-                    <CardTitle className='text-2xl'>Log In</CardTitle>
                     <CardDescription className='text-sm'>Welcome Back</CardDescription>
+                    <CardTitle className='text-2xl'>Log In</CardTitle>
                 </CardHeader>
                 <CardContent className='grid gap-4'>
                     <div className='grid gap-2'>
@@ -69,18 +71,12 @@ export function LoginForm() {
                                 Forgot Password?
                             </Link>
                         </div>
-                        <Input
+                        <PasswordInput
                             id='password'
-                            type='password'
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
+                            disabled={isLoading}
                             required
                         />
-                    </div>
-                    <div>
-                        Don&apos;t have an account?{' '}
-                        <Link href='/projectzen/create-account' className='text-blue-500'>
-                            Create New Account
-                        </Link>
                     </div>
                     <button 
                         type="submit" 
@@ -89,11 +85,21 @@ export function LoginForm() {
                     >
                         {isLoading ? "Logging in..." : "Log in"}
                     </button>
+
+                    <div className="-mt-1">
+                        <OauthSignIn isLoading={isLoading} onLoadingChange={setIsLoading} />
+                        
+                        <div className="mt-4 text-center">
+                            Don&apos;t have an account?{' '}
+                            <Link href='/create-account' className='text-blue-500'>
+                                Create New Account
+                            </Link>
+                        </div>
+                    </div>
                 </CardContent>
             </form>
         </Card>
     );
-};
-
+}
 
 export default LoginForm;

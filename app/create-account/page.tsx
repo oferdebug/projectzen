@@ -1,12 +1,10 @@
 import React from 'react';
 import { CreateAccountForm } from './CreateAccountForm';
 
-const CreateAccountPage = () => {
+export default function CreateAccountPage() {
   return (
-    <div className="flex items-center justify-center h-minus-135 ">
+    <div className="flex min-h-screen items-center justify-center">
       <CreateAccountForm />
     </div>
   );
-};
-
-export default CreateAccountPage;
+}
