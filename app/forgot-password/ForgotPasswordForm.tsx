@@ -79,7 +79,7 @@ export function ForgotPasswordForm() {
                 </CardContent>
                 <CardFooter>
                     <div className='text-sm'>
-                        Remember Your Password{''}
+                        Remember Your Password? {''}
                         <Link href='/login' className='text-blue-500'>
                             Sign In
                         </Link>

@@ -24,13 +24,13 @@ const fadeInUp = {
 
 const LandingPage: React.FC = () => {
     const { resolvedTheme } = useTheme();
-
+    console.log('Current theme:', resolvedTheme);
     return (
         <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-background/95">
             {/* Hero Section */}
-            <motion.div
-                className="container mx-auto px-6 pt-24 pb-12"
-                initial="hidden"
+                <motion.div
+                    className="container mx-auto px-6 pt-24 pb-12"
+                    initial="hidden"
                 animate="visible"
                 variants={fadeInUp}
             >
@@ -45,8 +45,27 @@ const LandingPage: React.FC = () => {
                     >
                         Organize All Your Work, Projects, And More
                         <br />
-                        <span className="bg-clip-text [-webkit-background-clip:text] text-transparent bg-gradient-to-r from-primary to-primary/60">
-                            One Task At A Time
+                        <style jsx>{`
+                            .gradient-text {
+                                background: linear-gradient(to right, 
+                                    var(--gradient-start, #000), 
+                                    var(--gradient-end, #999)
+                                );
+                                -webkit-background-clip: text;
+                                background-clip: text;
+                                color: transparent;
+                                font-weight: 900;
+                            }
+
+                            :global(.dark) .gradient-text {
+                                --gradient-start: #ffffff;
+                                --gradient-end: #888888;
+                            }
+                        `}</style>
+                        <span className="relative inline-block">
+                            <span className="gradient-text">
+                                One Task At A Time
+                            </span>
                         </span>
                     </motion.h1>
                     {/* Description */}
@@ -135,7 +154,8 @@ const LandingPage: React.FC = () => {
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                     <div className="h-[40rem] w-[40rem] rounded-full bg-primary/10 blur-3xl"></div>
                 </div>
-            </div>
+                </div>
+                
         </div>
     );
 };

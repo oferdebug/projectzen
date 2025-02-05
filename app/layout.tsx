@@ -5,6 +5,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import AppProvider from './AppProvider';
+import { ThemeProvider } from "../components/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,19 +28,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const cn = (...classes: (string | undefined)[]) =>
-    classes.filter(Boolean).join('');
+    classes.filter(Boolean).join(' ');
 
   return (
-    <html lang="en" className="light" style={{ colorScheme: "light" }}>
+    <html lang="en" suppressHydrationWarning>
+      <head />
       <body
         className={cn(
           geistSans.variable,
           geistMono.variable,
-          "font-sans antialiased",
           'min-h-screen bg-background font-sans antialiased'
         )}
       >
-        <AppProvider>{children}</AppProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AppProvider>{children}</AppProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

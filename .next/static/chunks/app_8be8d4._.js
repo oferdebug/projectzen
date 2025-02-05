@@ -9,6 +9,7 @@ __turbopack_esm__({
     "default": (()=>__TURBOPACK__default__export__)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/styled-jsx/style.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next-themes/dist/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/components/ui/button.tsx [app-client] (ecmascript)");
@@ -18,6 +19,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 ;
 var _s = __turbopack_refresh__.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -45,6 +47,7 @@ const fadeInUp = {
 const LandingPage = ()=>{
     _s();
     const { resolvedTheme } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTheme"])();
+    console.log('Current theme:', resolvedTheme);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "min-h-screen flex flex-col bg-gradient-to-b from-background to-background/95",
         children: [
@@ -72,17 +75,30 @@ const LandingPage = ()=>{
                                 },
                                 children: [
                                     "Organize All Your Work, Projects, And More",
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {
+                                        className: "jsx-4c569152dfed14ab"
+                                    }, void 0, false, {
                                         fileName: "[project]/app/Landing.tsx",
                                         lineNumber: 47,
                                         columnNumber: 25
                                     }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                        id: "4c569152dfed14ab",
+                                        children: ".gradient-text.jsx-4c569152dfed14ab{background:linear-gradient(to right,var(--gradient-start,#000),var(--gradient-end,#999));color:#0000;background-clip:text;font-weight:900}.dark .gradient-text.jsx-4c569152dfed14ab{--gradient-start:#fff;--gradient-end:#888}"
+                                    }, void 0, false, void 0, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "bg-clip-text [-webkit-background-clip:text] text-transparent bg-gradient-to-r from-primary to-primary/60",
-                                        children: "One Task At A Time"
+                                        className: "jsx-4c569152dfed14ab" + " " + "relative inline-block",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "jsx-4c569152dfed14ab" + " " + "gradient-text",
+                                            children: "One Task At A Time"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/Landing.tsx",
+                                            lineNumber: 66,
+                                            columnNumber: 29
+                                        }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/Landing.tsx",
-                                        lineNumber: 48,
+                                        lineNumber: 65,
                                         columnNumber: 25
                                     }, this)
                                 ]
@@ -97,7 +113,7 @@ const LandingPage = ()=>{
                                 children: "ProjectZen is a project management tool that helps you organize your work, projects, and more. With intuitive Kanban boards, real-time collaboration, custom workflows, and advanced task tracking, you can stay on top of your work and get things done."
                             }, void 0, false, {
                                 fileName: "[project]/app/Landing.tsx",
-                                lineNumber: 53,
+                                lineNumber: 72,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -117,18 +133,18 @@ const LandingPage = ()=>{
                                                     className: "h-4 w-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/Landing.tsx",
-                                                    lineNumber: 73,
+                                                    lineNumber: 92,
                                                     columnNumber: 51
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/Landing.tsx",
-                                            lineNumber: 72,
+                                            lineNumber: 91,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/Landing.tsx",
-                                        lineNumber: 67,
+                                        lineNumber: 86,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -141,18 +157,18 @@ const LandingPage = ()=>{
                                             children: "Sign In"
                                         }, void 0, false, {
                                             fileName: "[project]/app/Landing.tsx",
-                                            lineNumber: 82,
+                                            lineNumber: 101,
                                             columnNumber: 29
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/Landing.tsx",
-                                        lineNumber: 76,
+                                        lineNumber: 95,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/Landing.tsx",
-                                lineNumber: 63,
+                                lineNumber: 82,
                                 columnNumber: 21
                             }, this)
                         ]
@@ -183,7 +199,7 @@ const LandingPage = ()=>{
                                         className: "h-6 w-6 text-primary"
                                     }, void 0, false, {
                                         fileName: "[project]/app/Landing.tsx",
-                                        lineNumber: 102,
+                                        lineNumber: 121,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -191,25 +207,25 @@ const LandingPage = ()=>{
                                         children: feature
                                     }, void 0, false, {
                                         fileName: "[project]/app/Landing.tsx",
-                                        lineNumber: 103,
+                                        lineNumber: 122,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, feature, true, {
                                 fileName: "[project]/app/Landing.tsx",
-                                lineNumber: 96,
+                                lineNumber: 115,
                                 columnNumber: 25
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/Landing.tsx",
-                        lineNumber: 88,
+                        lineNumber: 107,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/Landing.tsx",
                 lineNumber: 31,
-                columnNumber: 13
+                columnNumber: 17
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
                 className: "relative w-full h-[400px] sm:h-[500px] bg-background/90 rounded-lg shadow-lg overflow-hidden mx-auto max-w-5xl",
@@ -239,12 +255,12 @@ const LandingPage = ()=>{
                     }
                 }, void 0, false, {
                     fileName: "[project]/app/Landing.tsx",
-                    lineNumber: 117,
+                    lineNumber: 136,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/Landing.tsx",
-                lineNumber: 110,
+                lineNumber: 129,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -254,7 +270,7 @@ const LandingPage = ()=>{
                         className: "absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-background"
                     }, void 0, false, {
                         fileName: "[project]/app/Landing.tsx",
-                        lineNumber: 134,
+                        lineNumber: 153,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -263,18 +279,18 @@ const LandingPage = ()=>{
                             className: "h-[40rem] w-[40rem] rounded-full bg-primary/10 blur-3xl"
                         }, void 0, false, {
                             fileName: "[project]/app/Landing.tsx",
-                            lineNumber: 136,
+                            lineNumber: 155,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/Landing.tsx",
-                        lineNumber: 135,
+                        lineNumber: 154,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/Landing.tsx",
-                lineNumber: 133,
+                lineNumber: 152,
                 columnNumber: 13
             }, this)
         ]
