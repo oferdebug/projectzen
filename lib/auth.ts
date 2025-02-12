@@ -133,4 +133,17 @@ export class ApiError extends Error {
   }
 }
 
-export { signIn };
+export { signIn, signOut };
+
+export async function signUp(email: string, password: string) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password
+  });
+
+  if (error) {
+    throw new ApiError(error.message, 400);
+  }
+
+  return data;
+}

@@ -1,7 +1,7 @@
 You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
 ## Project Description
-Project Context: This is a dev tool built for evaluating open source projects allowing people to better understand the maintainability, activity and longevity of a given project to allow devs to better decide whether they should include or use the given open source repositories after the analysis 
+Project Context: This is a dev tool built for evaluating open source projects allowing people to better understand the maintainability, activity and longevity of a given project to allow devs to better decide whether they should include or use the given open source repositories after the analysis
 
 ## Code Style and Structure
 - Write concise, technical TypeScript code with accurate examples.
@@ -10,9 +10,10 @@ Project Context: This is a dev tool built for evaluating open source projects al
 - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
 - Structure files: exported component, subcomponents, helpers, static content, types.
 - Database: use knex.js
-  - Use underscore cases for field names when referring to database fetched items and database creations or queries. 
+  - Use underscore cases for field names when referring to database fetched items and database creations or queries.
 
 ## Naming Conventions
+
 - Use lowercase with dashes for directories (e.g., components/auth-wizard).
 - Favor named exports for components.
 

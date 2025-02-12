@@ -18,7 +18,7 @@ export type AuthError = {
 
 export const auth = {
   // Email And Password SignUp
-  async signUp(email: string, password: string, phone?: string) {
+  async signUp(email: string, password: string) {
     // Step 1: Check If Email Already Exists
     const { data: existingUser, error: checkError } = await supabase
       .from('users')

@@ -1,9 +1,7 @@
 import { createClient } from "./supabase/client";
 import type { User } from "@supabase/supabase-js";
-import { Metadata } from 'next';
 
 const supabase = createClient();
-
 
 export interface IuserLink {
     id: string;
