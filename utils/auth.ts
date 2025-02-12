@@ -1,19 +1,25 @@
-import { useAccessStore } from '@/stores/useAccessStore';
+import { useAccessStore } from "@/stores/useAccessStore";
+import { createClient } from "@supabase/supabase-js";
+import { users } from './users';
 
-import { createClient } from './supabase/client';
-// Remove import since users table is accessed via Supabase client
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-const supabase = createClient();
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Supabase URL or Key is missing');
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export type AuthError = {
   message: string;
-  status?: number;
+  status: number;
 };
 
 export const auth = {
-  // Email & Password Sign Up
-  async signUp(email: string, password: string, phone: string) {
-    // Step 1: Check if email already exists in users table
+  // Email And Password SignUp
+  async signUp(email: string, password: string, phone?: string) {
+    // Step 1: Check If Email Already Exists
     const { data: existingUser, error: checkError } = await supabase
       .from('users')
       .select('id')
@@ -21,18 +27,14 @@ export const auth = {
       .single();
 
     if (existingUser) {
-      throw new Error(
-        'This email is already registered. Try signing in instead.'
-      );
+      throw new Error('This Email Is Already Registered, Try SignIn In Instead');
     }
-
-    if (checkError && checkError.code !== 'PGRST116') {
-      // PGRST116 means no rows returned
+    if (checkError && checkError.code !== 'PGRST106') {
       throw checkError;
     }
 
-    // Step 2: Try to sign up the user
-    const { data, error: signUpError } = await supabase.auth.signUp({
+    // Step 2: Create User
+    const { error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -40,47 +42,24 @@ export const auth = {
       },
     });
 
-    // If signup fails
     if (signUpError) {
       throw signUpError;
     }
 
-    // If no user data, something went wrong
-    if (!data.user) {
-      throw new Error('Failed to create user account');
-    }
-
-    // Step 3: Only proceed with profile creation for new signups
-    if (data.user.identities?.length === 0) {
+    // Step 3: Create User In Supabase DB
+    const { data: userData } = await supabase.auth.getUser();
+    if (userData.user?.identities?.length === 0) {
       try {
-        await users.captureUserDetails(data.user);
+        await users.captureUserDetails(userData.user);
       } catch (profileError) {
-        // If profile creation fails, clean up the auth user
-        await supabase.auth.admin.deleteUser(data.user.id);
+        await supabase.auth.admin.deleteUser(userData.user.id);
         throw profileError;
       }
     }
-
-    return data;
   },
 
-  // Email & Password Sign In
-  async signIn(email: string, password: string) {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) throw error;
-
-    if (data.user) {
-      await users.captureUserDetails(data.user);
-    }
-
-    return data;
-  },
-
-  // OAuth Sign In (Google, GitHub)
-  async signInWithOAuth(provider: 'github' | 'google', nextUrl?: string) {
+  // OAuth SignIn (Google, GitHub)
+  async signInWithOAuth(provider: 'google' | 'github', nextUrl?: string) {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
@@ -91,7 +70,7 @@ export const auth = {
     return data;
   },
 
-  // Sign Out
+  // SignOut
   async signOut() {
     const { error } = await supabase.auth.signOut();
     useAccessStore.getState().reset();
@@ -100,46 +79,42 @@ export const auth = {
 
   // Password Reset Request
   async resetPasswordRequest(email: string) {
-    // First check if user exists in our users table and uses email provider
     const { data: user, error: userError } = await supabase
       .from('users')
-      .select('id, provider')
+      .select('id,provider')
       .eq('email', email)
       .single();
 
-    if (userError && userError.code !== 'PGRST116') {
-      // PGRST116 means no rows returned
+    if (userError && userError.code !== 'PGRST106') {
       throw userError;
     }
 
-    // If user doesn't exist or doesn't use email auth, still return success
-    // This prevents email enumeration attacks
     if (!user || user.provider !== 'email') {
       return {
         success: true,
-        message: 'If an account exists, a password reset link will be sent.',
+        message: 'If The Account Exists, A Password Link Will Be Sent To Your Email',
       };
     }
 
-    const resetLink = `${location.origin}/auth/reset-password`;
-    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    const resetLink = `${location.origin}/auth/reset-password?email=${email}`;
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: resetLink,
     });
-
     if (error) throw error;
-
     return {
       success: true,
-      message: 'If an account exists, a password reset link will be sent.',
+      message: 'If The Account Exists, A Password Link Will Be Sent To Your Email',
     };
   },
 
   // Password Reset
-  async resetPassword(newPassword: string) {
+  async resetPassword(_password: string) {
     const { data, error } = await supabase.auth.updateUser({
-      password: newPassword,
+      password: _password,
     });
     if (error) throw { message: error.message, status: error.status };
     return data;
   },
 };
+
+

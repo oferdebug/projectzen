@@ -30,10 +30,10 @@ export function ForgotPasswordForm() {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const response = await auth.resetPasswordRequest(email);
+            const response = await auth.forgotPassword(email);
             toast({
                 title: 'Success, check your email!',
-                description: response.message,
+                description: 'If an account exists with this email, you will receive a password reset link',
             });
             router.push('/login');
         } catch (error) {
