@@ -2,14 +2,15 @@
   "version": "0.2",
   "language": "en",
   "words": [
-    "vercel",
+    "documaintion",
+    "shadcn",
     "supabase",
     "tailwindcss",
-    "shadcn"
+    "vercel"
   ],
   "ignorePaths": [
     "node_modules/**",
     "dist/**",
     ".git/**"
   ]
-} 
+}
