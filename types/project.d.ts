@@ -27,6 +27,7 @@ export interface ActivityMetrics{
 
 //!SECTION - Maintenance Metrics
 export interface MaintenanceMetrics {
+  dependencyHealth: any;
   codeSmells: ReactNode;
   securityVulnerabilities: ReactNode;
   breakingChanges: number;
@@ -38,6 +39,7 @@ export interface MaintenanceMetrics {
 
 //!SECTION - Stability Metrics
 export interface StabilityMetrics {
+  bugRate: any;
   contributorCount: ReactNode;
   bugFrequency: number; //NOTE - Number of bugs per week
   releaseFrequency: number; //NOTE - Number of releases per month
@@ -47,6 +49,7 @@ export interface StabilityMetrics {
 
 //!SECTION - Community Metrics
 export interface CommunityMetrics {
+  communityEngagement: any;
   contributors: number; //NOTE - Number of contributors
   stars: number; //NOTE - Number of starts
   forks: number; //NOTE - Number of forks

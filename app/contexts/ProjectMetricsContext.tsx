@@ -70,7 +70,7 @@ export function ProjectMetricsProvider({
 }
 
 //NOTE - useProjectMetrics Hook
-export function useProjectMetrics() {
+export function useProjectMetrics(projectId: string) {
   const context = useContext(ProjectMetricsContext);
   if (!context) {
     throw new Error(
@@ -168,38 +168,37 @@ interface CommunityMetrics {
 //!SECTION-Add The Metrics Calculation Functions Here
 
 function calculateActivityMetrics(repoData: RepositoryData): ActivityMetrics {
-  // Calculate days since last commit
-  const daysSinceLastCommit =
-    Math.floor(
-      (new Date().getTime() - repoData.lastCommit.getTime()) /
-        (1000 * 60 * 60 * 24)
-    ) || 1; // NOTE - Avoid Division By Zero
+  const daysSinceLastCommit = Math.max(
+    1, // Ensure at least 1 day to avoid division by zero
+    Math.floor((new Date().getTime() - repoData.lastCommit.getTime()) / (1000 * 60 * 60 * 24))
+  );
 
-  // Calculate commit frequency
   const commitFrequency = repoData.commits / daysSinceLastCommit;
-
-  // Calculate issue response time
-  const issueResponseTime =
-    repoData.issues > 0 ? daysSinceLastCommit / repoData.issues : 0;
-
-  // Calculate issue resolution rate
-  const issueResolution =
-    repoData.issues > 0 ? repoData.commits / repoData.issues : 0;
-
-  // Calculate pull request frequency
   const pullRequestFrequency = repoData.pullRequests / daysSinceLastCommit;
-
-  // Calculate code review frequency
-  const codeReviewFrequency =
-    repoData.pullRequests > 0 ? repoData.pullRequests / repoData.commits : 0;
 
   return {
     commitFrequency: parseFloat(commitFrequency.toFixed(2)),
-    issueResponseTime: parseFloat(issueResponseTime.toFixed(2)),
-    issueResolution: parseFloat(issueResolution.toFixed(2)),
+    issueResponseTime: calculateIssueResponseTime(repoData),
+    issueResolution: calculateIssueResolutionRate(repoData),
     pullRequestFrequency: parseFloat(pullRequestFrequency.toFixed(2)),
-    codeReviewFrequency: parseFloat(codeReviewFrequency.toFixed(2)),
+    codeReviewFrequency: calculateCodeReviewFrequency(repoData)
   };
+}
+
+// Helper functions for more accurate calculations
+function calculateIssueResponseTime(repoData: RepositoryData): number {
+  // TODO: Implement based on issue timestamps
+  return 0;
+}
+
+function calculateIssueResolutionRate(repoData: RepositoryData): number {
+  // TODO: Implement based on closed issues
+  return 0;
+}
+
+function calculateCodeReviewFrequency(repoData: RepositoryData): number {
+  // TODO: Implement based on PR reviews
+  return 0;
 }
 
 function calculateStabilityMetrics(repoData: RepositoryData): StabilityMetrics {
