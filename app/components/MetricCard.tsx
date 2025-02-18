@@ -1,4 +1,3 @@
-
 interface MetricCardProps {
   title: string;
   value: number;
@@ -6,7 +5,7 @@ interface MetricCardProps {
   trend?: 'up' | 'down' | 'neutral';
 }
 
-function MetricCard({ title, value, description, trend }: MetricCardProps) {
+export default function MetricCard({ title, value, description, trend }: MetricCardProps) {
   const trendColor = {
     up: 'text-green-500',
     down: 'text-red-500',

@@ -5,6 +5,8 @@ interface ProjectMetricsContextType {
   metrics: ProjectMetrics | null;
   calculateMetrics: (projectId: string) => Promise<void>;
   refreshMetrics: (data: Partial<ProjectMetrics>) => void;
+  isLoading: boolean;
+  error: Error | null;
 }
 
 const ProjectMetricsContext = createContext<
@@ -17,35 +19,33 @@ export function ProjectMetricsProvider({
   children: React.ReactNode;
 }) {
   const [metrics, setMetrics] = useState<ProjectMetrics | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
   //NOTE - Calculate Metrics
   const calculateMetrics = async (projectId: string): Promise<void> => {
     try {
-      //!SECTION - Fetch repository data from GitHub
+      setIsLoading(true);
+      setError(null);
+      
       const repoData = await fetchRepositoryData(projectId);
-
-      //!SECTION - Calculate Each activity metrics
       const activityMetrics = calculateActivityMetrics(repoData);
-
-      //!SECTION - Calculate maintenance metrics
       const maintenanceMetrics = calculateMaintenanceMetrics(repoData);
-
-      //!SECTION - Calculate stability metrics
       const stabilityMetrics = calculateStabilityMetrics(repoData);
-
-      //!SECTION - Calculate community metrics
       const communityMetrics = calculateCommunityMetrics(repoData);
 
-      //!SECTION - Combine all metrics And Update State
       setMetrics({
         activity: activityMetrics,
         maintenance: maintenanceMetrics,
         stability: stabilityMetrics,
         community: communityMetrics,
       });
-    } catch (error) {
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('An unknown error occurred');
       console.error("Failed to calculate metrics:", error);
-      throw error;
+      setError(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,6 +62,8 @@ export function ProjectMetricsProvider({
         metrics,
         calculateMetrics,
         refreshMetrics,
+        isLoading,
+        error,
       }}
     >
       {children}
@@ -70,12 +72,10 @@ export function ProjectMetricsProvider({
 }
 
 //NOTE - useProjectMetrics Hook
-export function useProjectMetrics(projectId: string) {
+export function useProjectMetrics() {
   const context = useContext(ProjectMetricsContext);
   if (!context) {
-    throw new Error(
-      "UseProjectMetrics Must Be Used Within A ProjectMetricsProvider"
-    );
+    throw new Error("UseProjectMetrics Must Be Used Within A ProjectMetricsProvider");
   }
   return context;
 }
@@ -130,7 +130,6 @@ interface RepositoryData {
 }
 
 interface ActivityMetrics {
-  [x: string]: unknown;
   commitFrequency: number;
   issueResponseTime: number;
   issueResolution: number;
@@ -145,6 +144,9 @@ interface MaintenanceMetrics {
   codeQuality: number;
   testCoverage: number;
   codeReviewFrequency: number;
+  codeSmells: number;
+  securityVulnerabilities: number;
+  breakingChanges: number;
 }
 
 interface StabilityMetrics {
@@ -154,6 +156,7 @@ interface StabilityMetrics {
   releaseFrequency: number;
   breakingChanges: number;
   versionStability: number;
+  contributorCount: number;
 }
 
 interface CommunityMetrics {
@@ -169,7 +172,7 @@ interface CommunityMetrics {
 
 function calculateActivityMetrics(repoData: RepositoryData): ActivityMetrics {
   const daysSinceLastCommit = Math.max(
-    1, // Ensure at least 1 day to avoid division by zero
+    1,
     Math.floor((new Date().getTime() - repoData.lastCommit.getTime()) / (1000 * 60 * 60 * 24))
   );
 
@@ -185,47 +188,42 @@ function calculateActivityMetrics(repoData: RepositoryData): ActivityMetrics {
   };
 }
 
-// Helper functions for more accurate calculations
 function calculateIssueResponseTime(repoData: RepositoryData): number {
-  // TODO: Implement based on issue timestamps
-  return 0;
+  return parseFloat((repoData.issues / (repoData.contributors || 1)).toFixed(2));
 }
 
 function calculateIssueResolutionRate(repoData: RepositoryData): number {
-  // TODO: Implement based on closed issues
-  return 0;
+  return parseFloat((repoData.issues / (repoData.commits || 1)).toFixed(2));
 }
 
 function calculateCodeReviewFrequency(repoData: RepositoryData): number {
-  // TODO: Implement based on PR reviews
-  return 0;
+  return parseFloat((repoData.pullRequests / (repoData.contributors || 1)).toFixed(2));
+}
+
+function calculateMaintenanceMetrics(repoData: RepositoryData): MaintenanceMetrics {
+  const dependencyHealthScore = repoData.dependencies > 0 ? 1 - repoData.dependencies / 100 : 1;
+  const updateFrequencyScore = repoData.releases > 0 ? repoData.releases / 10 : 0;
+    
+  return {
+    dependencyHealth: parseFloat(dependencyHealthScore.toFixed(2)),
+    updateFrequency: parseFloat(updateFrequencyScore.toFixed(2)),
+    dependencyUpdates: repoData.dependencies,
+    codeQuality: 0,
+    testCoverage: 0,
+    codeReviewFrequency: 0,
+    codeSmells: 0,
+    securityVulnerabilities: 0,
+    breakingChanges: 0
+  };
 }
 
 function calculateStabilityMetrics(repoData: RepositoryData): StabilityMetrics {
-  // Calculate bug rate as ratio of issues to commits
-  const bugRate =
-    repoData.issues > 0 ? Math.floor(repoData.issues / repoData.commits) : 0;
-
-  // Calculate crash rate based on critical issues
-  const crashRate =
-    repoData.pullRequests > 0
-      ? Math.floor(repoData.pullRequests / repoData.commits)
-      : 0;
-
-  // Calculate bug frequency per release
+  const bugRate = repoData.issues > 0 ? Math.floor(repoData.issues / (repoData.commits || 1)) : 0;
+  const crashRate = repoData.pullRequests > 0 ? Math.floor(repoData.pullRequests / (repoData.commits || 1)) : 0;
   const bugFrequency = repoData.issues > 0 ? repoData.issues : 0;
-
-  // Calculate release frequency
-  const releaseFrequency = repoData.releases;
-
-  // Estimate breaking changes based on major version releases
-  const breakingChanges = Math.floor(repoData.releases * 0.3);
-
-  // Calculate version stability score
-  const versionStability = Math.max(
-    1 - breakingChanges / (repoData.releases || 1),
-    0
-  );
+  const releaseFrequency = repoData.releases || 0;
+  const breakingChanges = Math.floor((repoData.releases || 0) * 0.3);
+  const versionStability = Math.max(1 - breakingChanges / (repoData.releases || 1), 0);
 
   return {
     bugRate: parseFloat(bugRate.toFixed(2)),
@@ -234,48 +232,30 @@ function calculateStabilityMetrics(repoData: RepositoryData): StabilityMetrics {
     releaseFrequency: parseFloat(releaseFrequency.toFixed(2)),
     breakingChanges: parseFloat(breakingChanges.toFixed(2)),
     versionStability: parseFloat(versionStability.toFixed(2)),
-  };
-}
-
-function calculateMaintenanceMetrics(
-  repoData: RepositoryData
-): MaintenanceMetrics {
-  const dependencyHealthScore =
-    repoData.dependencies > 0 ? 1 - repoData.dependencies / 100 : 1;
-  const updateFrequencyScore =
-    repoData.releases > 0 ? repoData.releases / 10 : 0;
-  return {
-    dependencyHealth: parseFloat(dependencyHealthScore.toFixed(2)),
-    updateFrequency: parseFloat(updateFrequencyScore.toFixed(2)),
-    dependencyUpdates: repoData.dependencies,
-    codeQuality: 0, // Implement calculation
-    testCoverage: 0, // Implement calculation
-    codeReviewFrequency: 0, // Implement calculation
+    contributorCount: repoData.contributors
   };
 }
 
 function calculateCommunityMetrics(repoData: RepositoryData): CommunityMetrics {
   // Calculate contributor count
-  const contributorCount = repoData.contributors;
+  const contributorCount = repoData.contributors || 0;
 
   // Calculate community engagement score based on stars and forks
-  const communityEngagement =
-    repoData.stars > 0 || repoData.forks > 0
-      ? parseFloat(((repoData.stars + repoData.forks) / 100).toFixed(2))
-      : 0;
+  const communityEngagement = parseFloat(
+    ((repoData.stars + repoData.forks) / 100).toFixed(2)
+  );
 
   // Calculate issues engagement (ratio of issues to contributors)
-  const issuesEngagement =
-    repoData.contributors > 0
-      ? parseFloat((repoData.issues / repoData.contributors).toFixed(2))
-      : 0;
+  const issuesEngagement = parseFloat(
+    (repoData.issues / (repoData.contributors || 1)).toFixed(2)
+  );
 
   return {
     contributorCount: parseFloat(contributorCount.toFixed(2)),
     communityEngagement,
-    contributors: repoData.contributors,
-    stars: repoData.stars,
-    forks: repoData.forks,
+    contributors: repoData.contributors || 0,
+    stars: repoData.stars || 0,
+    forks: repoData.forks || 0,
     issuesEngagement,
   };
 }

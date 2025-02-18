@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useProjectMetrics } from '../contexts/ProjectMetricsContext';
 import MetricCard from './MetricCard';
 
 function ProjectMetricsDisplay({ projectId }: { projectId: string }) {
-  const { metrics, isLoading, error } = useProjectMetrics(projectId);
+  const { metrics, isLoading, error, calculateMetrics } = useProjectMetrics();
+
+   
+  useEffect(() => {
+    if (projectId) {
+      calculateMetrics(projectId);
+    }
+  }, [calculateMetrics, projectId]);
 
   if (isLoading) return <div className="text-center py-8">Loading metrics...</div>;
   if (error) return <div className="text-center py-8 text-red-500">Error: {error.message}</div>;
@@ -39,4 +46,4 @@ function ProjectMetricsDisplay({ projectId }: { projectId: string }) {
   );
 }
 
-export default ProjectMetricsDisplay; 
+export default ProjectMetricsDisplay;

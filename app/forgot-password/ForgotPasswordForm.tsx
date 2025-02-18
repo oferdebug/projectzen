@@ -13,36 +13,35 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { auth } from '@/utils/auth';
-import { useToast } from '@/hooks/use-toast';
+import * as auth from '@/lib/auth';
+import { toast } from '@/components/ui/use-toast';
 import { getAuthError } from '@/utils/auth-errors';
 import Icons from '@/components/Icons';
-
+import { createToast } from '@/types/toast';
 
 export function ForgotPasswordForm() {
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState('');
     const router = useRouter();
-    const { toast } = useToast();
-
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const response = await auth.forgotPassword(email);
-            toast({
+            await auth.resetPasswordRequest(email);
+            toast(createToast({
                 title: 'Success, check your email!',
                 description: 'If an account exists with this email, you will receive a password reset link',
-            });
+                variant: 'default'
+            }));
             router.push('/login');
         } catch (error) {
             const { message } = getAuthError(error);
-            toast({
+            toast(createToast({
                 variant: 'destructive',
                 title: 'Error',
-                description: message,
-            });
+                description: message
+            }));
         } finally {
             setIsLoading(false);
         }
@@ -61,8 +60,8 @@ export function ForgotPasswordForm() {
                     <div className='grid gap-2'>
                         <Label htmlFor='email'>Email</Label>
                         <Input
-                            id='Email'
-                            type='Email'
+                            id='email'
+                            type='email'
                             placeholder='Enter Your Email'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -88,7 +87,6 @@ export function ForgotPasswordForm() {
             </form>
         </Card>
     );
-};
-
+}
 
 export default ForgotPasswordForm;

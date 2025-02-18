@@ -147,3 +147,13 @@ export async function signUp(email: string, password: string) {
 
   return data;
 }
+
+export async function resetPasswordRequest(email: string) {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email);
+
+  if (error) {
+    throw new ApiError(error.message, 400);
+  }
+
+  return data;
+}

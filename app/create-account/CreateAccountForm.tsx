@@ -16,10 +16,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import * as auth from '@/lib/auth';
-import * as useToast from '@/components/ui/use-toast';
+import { toast } from '@/components/ui/use-toast';
 import { getAuthError } from '@/utils/auth-errors';
 import { OauthSignIn } from '@/components/auth/OAuthSignIn';
-
+import { createToast } from '@/types/toast';
 
 export function CreateAccountForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,38 +27,37 @@ export function CreateAccountForm() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const router = useRouter();
-  const { toast } = useToast.useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  if (password !== confirmPassword) {
-    toast({
-      variant: 'destructive', 
-      title: 'Passwords Do Not Match',
-      description: 'Please make sure your passwords match'
-    });
-    return;
-  }
+    if (password !== confirmPassword) {
+      toast(createToast({
+        variant: 'destructive', 
+        title: 'Passwords Do Not Match',
+        description: 'Please make sure your passwords match'
+      }));
+      return;
+    }
 
-  try {
-    setIsLoading(true);
-    await auth.signUp(email, password);
-    toast({
-      title: 'Success',
-      description: 'Your account has been created successfully',
-    });
-    router.push('/login');
-  } catch (error) {
-    const { message } = getAuthError(error);
+    try {
+      setIsLoading(true);
+      await auth.signUp(email, password);
+      toast(createToast({
+        title: 'Success',
+        description: 'Your account has been created successfully'
+      }));
+      router.push('/login');
+    } catch (error) {
+      const { message } = getAuthError(error);
 
-    toast({
-      variant: 'destructive',
-      title: 'Account Creation Failed',
-      description: message,
-    });
-  } finally {
-    setIsLoading(false);
-  }
+      toast(createToast({
+        variant: 'destructive',
+        title: 'Account Creation Failed',
+        description: message
+      }));
+    } finally {
+      setIsLoading(false);
+    }
   };
   
   return (
@@ -101,7 +100,7 @@ export function CreateAccountForm() {
       </form>
     </Card>
   );
-};
+}
 
 export default CreateAccountForm;
 
